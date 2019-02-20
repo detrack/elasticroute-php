@@ -1,0 +1,16 @@
+{
+    "name": "detrack/elasticroute",
+    "description": "Intelligent Routing, on PHP.",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chester Koh",
+            "email": "chester@detrack.com"
+        }
+    ],
+    "require": {}
+}
