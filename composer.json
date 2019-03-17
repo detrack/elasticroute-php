@@ -1,16 +1,20 @@
 {
-    "name": "detrack/elasticroute",
-    "description": "Intelligent Routing, on PHP.",
-    "type": "library",
-    "require-dev": {
-        "phpunit/phpunit": "^8.0"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Chester Koh",
-            "email": "chester@detrack.com"
-        }
-    ],
-    "require": {}
+  "name": "detrack/elasticroute",
+  "description": "Free, intelligent routing for your logistics, now on PHP.",
+  "type": "library",
+  "require-dev": {
+    "phpunit/phpunit": "^8.0",
+    "vlucas/phpdotenv": "^v3.3.2"
+  },
+  "license": "MIT",
+  "authors": [{
+    "name": "Chester Koh",
+    "email": "chester@detrack.com"
+  }],
+  "autoload": {
+    "psr-4": {
+      "Detrack\\ElasticRoute\\": "src/"
+    }
+  },
+  "require": {}
 }
