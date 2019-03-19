@@ -9,4 +9,4 @@ install:
   - echo "elasticroute_path=$ER_PATH" >> tests/.env
   - cat tests/.env.example >> tests/.env
 script:
-  - phpunit tests --bootstrap tests/bootstrap.php
+  - vendor/phpunit/phpunit/phpunit tests --bootstrap tests/bootstrap.php
