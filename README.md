@@ -1,3 +1,8 @@
+[![Latest Stable Version](https://poser.pugx.org/detrack/elasticroute/v/stable)](https://packagist.org/packages/detrack/elasticroute)
+[![Build Status](https://travis-ci.com/detrack/elasticroute-php.svg?branch=master)](https://travis-ci.com/detrack/elasticroute-php)
+[![Coverage Status](https://coveralls.io/repos/github/detrack/elasticroute-php/badge.svg?branch=master)](https://coveralls.io/github/detrack/elasticroute-php?branch=master)
+[![Total Downloads](https://poser.pugx.org/detrack/elasticroute/downloads)](https://packagist.org/packages/detrack/elasticroute)
+[![License](https://poser.pugx.org/detrack/elasticroute/license)](https://packagist.org/packages/detrack/elasticroute)
 # ElasticRoute for PHP
 ![ElasticRoute Logo](http://elasticroute.staging.wpengine.com/wp-content/uploads/2019/02/Elastic-Route-Logo-Text-on-right-e1551344046806.png)
 ### API for solving large scale travelling salesman/fleet routing problems
