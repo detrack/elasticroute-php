@@ -5,7 +5,7 @@ php:
   - '7.3'
 install:
   - composer install
-  – cp tests/.env.example tests/.env
+  - cp tests/.env.example tests/.env
   - echo "elasticroute_api_key=$API_KEY" >> tests/.env
 script:
   - phpunit tests --bootstrap tests/bootstrap.php
