@@ -9,4 +9,7 @@ install:
   - echo "elasticroute_path=$ER_PATH" >> tests/.env
   - cat tests/.env.example >> tests/.env
 script:
-  - vendor/phpunit/phpunit/phpunit tests --bootstrap tests/bootstrap.php
+  - mkdir -p build/logs
+  - vendor/phpunit/phpunit/phpunit tests --bootstrap tests/bootstrap.php --whitelist src --coverage-clover build/logs/clover.xml
+after_success:
+  - travis_retry php vendor/bin/php-coveralls -v
