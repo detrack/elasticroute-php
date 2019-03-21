@@ -7,8 +7,8 @@ class Depot implements \JsonSerializable
     public $name;
     public $address;
     public $postal_code;
-    public $user_lat;
-    public $user_lng;
+    public $lat;
+    public $lng;
     public $default;
 
     public function __construct($data = [])
@@ -24,8 +24,8 @@ class Depot implements \JsonSerializable
             'name' => $this->name,
             'address' => $this->address,
             'postal_code' => $this->postal_code,
-            'user_lat' => $this->user_lat,
-            'user_lng' => $this->user_lng,
+            'lat' => $this->lat,
+            'lng' => $this->lng,
             'default' => $this->default,
         ];
     }
@@ -59,7 +59,7 @@ class Depot implements \JsonSerializable
                 throw new BadFieldException('Depot name must be distinct', $depot);
             }
             //check address/postcode/latlong
-            if ((!isset($depot['user_lat']) || $depot['user_lat'] === '') || (!isset($depot['user_lng']) || $depot['user_lng'] === '')) {
+            if ((!isset($depot['lat']) || $depot['lat'] === '') || (!isset($depot['lng']) || $depot['lng'] === '')) {
                 //if no coordinates found, check for address
                 if (!isset($depot['address']) || $depot['address'] === '') {
                     //if no address found, check for postcode for supported countries

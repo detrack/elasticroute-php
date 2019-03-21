@@ -42,13 +42,13 @@ final class PlanTest extends TestCase
             ],
             [
                 'name' => 'Gardens By the Bay',
-                'user_lat' => '1.281407',
-                'user_lng' => '103.865770',
+                'lat' => '1.281407',
+                'lng' => '103.865770',
             ],
             [
                 'name' => 'Singapore Zoo',
-                'user_lat' => '1.404701',
-                'user_lng' => '103.790018',
+                'lat' => '1.404701',
+                'lng' => '103.790018',
             ],
         ];
         $plan->depots = $depots;

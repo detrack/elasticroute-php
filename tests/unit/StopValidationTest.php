@@ -104,8 +104,8 @@ final class StopValidationTest extends TestCase
             $stop = $this->createStop(__METHOD__.$x);
             if ($x == 1) {
                 $stop->address = null;
-                $stop->user_lat = 1.3368888888888888;
-                $stop->user_lng = 103.91086111111112;
+                $stop->lat = 1.3368888888888888;
+                $stop->lng = 103.91086111111112;
             }
 
             return $stop;

@@ -104,8 +104,8 @@ final class DepotValidationTest extends TestCase
             $depot = $this->createDepot(__METHOD__.$x);
             if ($x == 1) {
                 $depot->address = null;
-                $depot->user_lat = 1.3368888888888888;
-                $depot->user_lng = 103.91086111111112;
+                $depot->lat = 1.3368888888888888;
+                $depot->lng = 103.91086111111112;
             }
 
             return $depot;

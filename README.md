@@ -11,8 +11,9 @@ You have a fleet of just 10 vehicles to serve 500 spots in the city. Some vehicl
 
 You don't need to. Just throw us an array of stops, vehicles and depots and we will do the heavy lifting for you. *Routing as a Service!*
 
-## Quick Start Guide
+**PRE-RELEASE:**  Preview only, full service launches 27th March 2019
 
+## Quick Start Guide
 Install with composer:
 ```
 composer install detrack/elasticroute
@@ -36,8 +37,8 @@ $plan->stops = [
     ],
     [
         "name" => "Gardens By the Bay",
-        "user_lat" => "1.281407",
-        "user_lng" => "103.865770",
+        "lat" => "1.281407",
+        "lng" => "103.865770",
     ],
     // add more stops!
     // both human-readable addresses and machine-friendly coordinates work!
@@ -155,4 +156,3 @@ while($solution->status != "planned"){
 Setting the `connectionType` to `"poll"` will cause the server to return you a response immediately after parsing the request data. You can monitor the status with the `status` and `progress` properties while fetching updates with the `refresh()` method.
 
 In addition, setting the `connectionType` to `"webhook"` will also cause the server to post a copy of the response to your said webhook. The exact location of the webhook can be specified with the `webhook` property of `Plan` objects.
-

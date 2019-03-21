@@ -35,10 +35,10 @@ class Stop implements \JsonSerializable
     public $seating_load;
     /** @var float Allows you to specify how long a vehicle is assumed to spend servicing this stop. */
     public $service_time;
-    /** @var float Allows you to specify coordinates for the stop instead of a human readable address. user_lng must also be specified. */
-    public $user_lat;
-    /** @var float Allows you to specify coordinates for the stop instead of a human readable address. user_lat must also be specified. */
-    public $user_lng;
+    /** @var float Allows you to specify coordinates for the stop instead of a human readable address. lng must also be specified. */
+    public $lat;
+    /** @var float Allows you to specify coordinates for the stop instead of a human readable address. lat must also be specified. */
+    public $lng;
     /** @var int Allows you to specify the earliest time this stop can be served. If left blank, will default to your service hours in General Settings. */
     public $from;
     /** @var int Allows you to specify the latest time this stop can be served. If left blank, will default to your service hours in General Settings */
@@ -75,23 +75,23 @@ class Stop implements \JsonSerializable
             'run' => $this->run,
             'sequence' => $this->sequence,
             'eta' => $this->eta,
-            'user_lat' => $this->user_lat,
-            'user_lng' => $this->user_lng,
+            'lat' => $this->lat,
+            'lng' => $this->lng,
             'exception' => $this->exception,
             'from' => $this->from,
             'till' => $this->till,
         ];
         /*
         * HOTFIX
-        * ISSUE: Server-side validation reports false negative when user_lat field is null but address field is present
+        * ISSUE: Server-side validation reports false negative when lat field is null but address field is present
         * CAUSE: Server correctly places valid coordinates at a higher prirority than address, but erroneously thinks that null is a valid coordinate
         * HOTFIX: On the client side, unset coordinates if coordinates is null
         **/
-        if (is_null($returnArray['user_lat'])) {
-            unset($returnArray['user_lat']);
+        if (is_null($returnArray['lat'])) {
+            unset($returnArray['lat']);
         }
-        if (is_null($returnArray['user_lng'])) {
-            unset($returnArray['user_lng']);
+        if (is_null($returnArray['lng'])) {
+            unset($returnArray['lng']);
         }
         /* HOTFIX END **/
         return $returnArray;
@@ -126,7 +126,7 @@ class Stop implements \JsonSerializable
                 throw new BadFieldException('Stop name must be distinct', $stop);
             }
             //check address/postcode/latlong
-            if ((!isset($stop['user_lat']) || $stop['user_lat'] === '') || (!isset($stop['user_lng']) || $stop['user_lng'] === '')) {
+            if ((!isset($stop['lat']) || $stop['lat'] === '') || (!isset($stop['lng']) || $stop['lng'] === '')) {
                 //if no coordinates found, check for address
                 if (!isset($stop['address']) || $stop['address'] === '') {
                     //if no address found, check for postcode for supported countries

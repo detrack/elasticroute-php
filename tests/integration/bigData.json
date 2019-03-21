@@ -11,8 +11,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.30153213",
-    "user_lng": "103.83717013",
+    "lat": "1.30153213",
+    "lng": "103.83717013",
     "from": 900,
     "till": 1700
   }, {
@@ -27,8 +27,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.33492219",
-    "user_lng": "103.79417006",
+    "lat": "1.33492219",
+    "lng": "103.79417006",
     "from": 900,
     "till": 1700
   }, {
@@ -43,8 +43,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.30254213",
-    "user_lng": "103.83417012",
+    "lat": "1.30254213",
+    "lng": "103.83417012",
     "from": 900,
     "till": 1700
   }, {
@@ -59,8 +59,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.27775209",
-    "user_lng": "103.84170145",
+    "lat": "1.27775209",
+    "lng": "103.84170145",
     "from": 900,
     "till": 1700
   }, {
@@ -75,8 +75,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.32857218",
-    "user_lng": "103.87617019",
+    "lat": "1.32857218",
+    "lng": "103.87617019",
     "from": 900,
     "till": 1700
   }, {
@@ -91,8 +91,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.38132226",
-    "user_lng": "103.97017034",
+    "lat": "1.38132226",
+    "lng": "103.97017034",
     "from": 900,
     "till": 1700
   }, {
@@ -107,8 +107,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.31183215",
-    "user_lng": "103.83170126",
+    "lat": "1.31183215",
+    "lng": "103.83170126",
     "from": 900,
     "till": 1700
   }, {
@@ -123,8 +123,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.32981218",
-    "user_lng": "103.76117000",
+    "lat": "1.32981218",
+    "lng": "103.76117000",
     "from": 900,
     "till": 1700
   }, {
@@ -139,8 +139,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.31332152",
-    "user_lng": "103.70169914",
+    "lat": "1.31332152",
+    "lng": "103.70169914",
     "from": 900,
     "till": 1700
   }, {
@@ -155,8 +155,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.30306213",
-    "user_lng": "103.83170122",
+    "lat": "1.30306213",
+    "lng": "103.83170122",
     "from": 900,
     "till": 1700
   }, {
@@ -171,8 +171,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.44309236",
-    "user_lng": "103.83617013",
+    "lat": "1.44309236",
+    "lng": "103.83617013",
     "from": 900,
     "till": 1700
   }, {
@@ -187,8 +187,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.38222265",
-    "user_lng": "103.97417035",
+    "lat": "1.38222265",
+    "lng": "103.97417035",
     "from": 900,
     "till": 1700
   }, {
@@ -203,8 +203,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.31171215",
-    "user_lng": "103.62916979",
+    "lat": "1.31171215",
+    "lng": "103.62916979",
     "from": 900,
     "till": 1700
   }, {
@@ -219,8 +219,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.28284210",
-    "user_lng": "103.84417014",
+    "lat": "1.28284210",
+    "lng": "103.84417014",
     "from": 900,
     "till": 1700
   }, {
@@ -235,8 +235,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.31627216",
-    "user_lng": "103.88017020",
+    "lat": "1.31627216",
+    "lng": "103.88017020",
     "from": 900,
     "till": 1700
   }, {
@@ -251,8 +251,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.29558212",
-    "user_lng": "103.85817016",
+    "lat": "1.29558212",
+    "lng": "103.85817016",
     "from": 900,
     "till": 1700
   }, {
@@ -267,8 +267,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.34394220",
-    "user_lng": "103.84317014",
+    "lat": "1.34394220",
+    "lng": "103.84317014",
     "from": 900,
     "till": 1700
   }, {
@@ -283,8 +283,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.33537219",
-    "user_lng": "103.90817024",
+    "lat": "1.33537219",
+    "lng": "103.90817024",
     "from": 900,
     "till": 1700
   }, {
@@ -299,8 +299,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.34143220",
-    "user_lng": "103.91217025",
+    "lat": "1.34143220",
+    "lng": "103.91217025",
     "from": 900,
     "till": 1700
   }, {
@@ -315,8 +315,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.32363217",
-    "user_lng": "103.92170266",
+    "lat": "1.32363217",
+    "lng": "103.92170266",
     "from": 900,
     "till": 1700
   }, {
@@ -331,8 +331,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.31934216",
-    "user_lng": "103.91217025",
+    "lat": "1.31934216",
+    "lng": "103.91217025",
     "from": 900,
     "till": 1700
   }, {
@@ -347,8 +347,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.31604216",
-    "user_lng": "103.92517027",
+    "lat": "1.31604216",
+    "lng": "103.92517027",
     "from": 900,
     "till": 1700
   }, {
@@ -363,8 +363,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.33795219",
-    "user_lng": "103.92017026",
+    "lat": "1.33795219",
+    "lng": "103.92017026",
     "from": 900,
     "till": 1700
   }, {
@@ -379,8 +379,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.34545220",
-    "user_lng": "103.93317029",
+    "lat": "1.34545220",
+    "lng": "103.93317029",
     "from": 900,
     "till": 1700
   }, {
@@ -395,8 +395,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.31133215",
-    "user_lng": "103.85617016",
+    "lat": "1.31133215",
+    "lng": "103.85617016",
     "from": 900,
     "till": 1700
   }, {
@@ -411,8 +411,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.29605212",
-    "user_lng": "103.85817016",
+    "lat": "1.29605212",
+    "lng": "103.85817016",
     "from": 900,
     "till": 1700
   }, {
@@ -427,8 +427,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.28978211",
-    "user_lng": "103.85117015",
+    "lat": "1.28978211",
+    "lng": "103.85117015",
     "from": 900,
     "till": 1700
   }, {
@@ -443,8 +443,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.35049221",
-    "user_lng": "103.84817015",
+    "lat": "1.35049221",
+    "lng": "103.84817015",
     "from": 900,
     "till": 1700
   }, {
@@ -459,8 +459,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.30389214",
-    "user_lng": "103.83517012",
+    "lat": "1.30389214",
+    "lng": "103.83517012",
     "from": 900,
     "till": 1700
   }, {
@@ -475,8 +475,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.36758224",
-    "user_lng": "103.74169984",
+    "lat": "1.36758224",
+    "lng": "103.74169984",
     "from": 900,
     "till": 1700
   }, {
@@ -491,8 +491,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.38041226",
-    "user_lng": "103.76017000",
+    "lat": "1.38041226",
+    "lng": "103.76017000",
     "from": 900,
     "till": 1700
   }, {
@@ -507,8 +507,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.33447219",
-    "user_lng": "103.74169972",
+    "lat": "1.33447219",
+    "lng": "103.74169972",
     "from": 900,
     "till": 1700
   }, {
@@ -523,8 +523,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.38418227",
-    "user_lng": "103.73716996",
+    "lat": "1.38418227",
+    "lng": "103.73716996",
     "from": 900,
     "till": 1700
   }, {
@@ -539,8 +539,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.34602221",
-    "user_lng": "103.73016995",
+    "lat": "1.34602221",
+    "lng": "103.73016995",
     "from": 900,
     "till": 1700
   }, {
@@ -555,8 +555,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.32101216",
-    "user_lng": "103.70616991",
+    "lat": "1.32101216",
+    "lng": "103.70616991",
     "from": 900,
     "till": 1700
   }, {
@@ -571,8 +571,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.33264218",
-    "user_lng": "103.67816987",
+    "lat": "1.33264218",
+    "lng": "103.67816987",
     "from": 900,
     "till": 1700
   }, {
@@ -587,8 +587,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.37438225",
-    "user_lng": "103.68716988",
+    "lat": "1.37438225",
+    "lng": "103.68716988",
     "from": 900,
     "till": 1700
   }, {
@@ -603,8 +603,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.29711213",
-    "user_lng": "103.77717003",
+    "lat": "1.29711213",
+    "lng": "103.77717003",
     "from": 900,
     "till": 1700
   }, {
@@ -619,8 +619,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.31878216",
-    "user_lng": "103.81817010",
+    "lat": "1.31878216",
+    "lng": "103.81817010",
     "from": 900,
     "till": 1700
   }, {
@@ -635,8 +635,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.36219223",
-    "user_lng": "103.84717014",
+    "lat": "1.36219223",
+    "lng": "103.84717014",
     "from": 900,
     "till": 1700
   }, {
@@ -651,8 +651,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.42381233",
-    "user_lng": "103.83170129",
+    "lat": "1.42381233",
+    "lng": "103.83170129",
     "from": 900,
     "till": 1700
   }, {
@@ -667,8 +667,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.44187236",
-    "user_lng": "103.82417011",
+    "lat": "1.44187236",
+    "lng": "103.82417011",
     "from": 900,
     "till": 1700
   }, {
@@ -683,8 +683,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.45223790",
-    "user_lng": "103.79317006",
+    "lat": "1.45223790",
+    "lng": "103.79317006",
     "from": 900,
     "till": 1700
   }, {
@@ -699,8 +699,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.44379237",
-    "user_lng": "103.78417004",
+    "lat": "1.44379237",
+    "lng": "103.78417004",
     "from": 900,
     "till": 1700
   }, {
@@ -715,8 +715,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.41752232",
-    "user_lng": "103.81517009",
+    "lat": "1.41752232",
+    "lng": "103.81517009",
     "from": 900,
     "till": 1700
   }, {
@@ -731,8 +731,8 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.42271233",
-    "user_lng": "103.76170005",
+    "lat": "1.42271233",
+    "lng": "103.76170005",
     "from": 900,
     "till": 1700
   }, {
@@ -747,16 +747,16 @@
     "volume_load": null,
     "seating_load": null,
     "service_time": 5,
-    "user_lat": "1.39134228",
-    "user_lng": "103.74716998",
+    "lat": "1.39134228",
+    "lng": "103.74716998",
     "from": 900,
     "till": 1700
   }],
   "depots": [{
     "name": "Kaki Bukit Warehouse",
     "address": "61 Kaki Bukit Avenue 1",
-    "user_lat": "1.33674219",
-    "user_lng": "103.91017025",
+    "lat": "1.33674219",
+    "lng": "103.91017025",
     "default": 1,
     "created_at": "2019-02-11 08:35:52",
     "updated_at": "2019-02-11 08:35:52"

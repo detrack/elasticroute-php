@@ -63,11 +63,11 @@ class Plan implements \JsonSerializable
             if (is_array($stop)) {
                 $stop = new Stop($stop);
             }
-            if (is_string($stop->user_lat) && is_numeric($stop->user_lat)) {
-                $stop->user_lat = (float) $stop->user_lat;
+            if (is_string($stop->lat) && is_numeric($stop->lat)) {
+                $stop->lat = (float) $stop->lat;
             }
-            if (is_string($stop->user_lng) && is_numeric($stop->user_lng)) {
-                $stop->user_lng = (float) $stop->user_lng;
+            if (is_string($stop->lng) && is_numeric($stop->lng)) {
+                $stop->lng = (float) $stop->lng;
             }
             if ($stop->from == null) {
                 $stop->from = $this->generalSettings['avail_from'];
