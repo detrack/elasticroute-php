@@ -98,6 +98,6 @@ final class SimplePlanTest extends TestCase
             $solution->refresh($this->proxy);
             sleep(5);
         }
-        $this->assertEquals(23, count($solution->getUnsolvedStops()));
+        $this->assertEquals(21, count($solution->getUnsolvedStops()));
     }
 }
