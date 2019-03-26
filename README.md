@@ -16,7 +16,7 @@ You don't need to. Just throw us an array of stops, vehicles and depots and we w
 ## Quick Start Guide
 Install with composer:
 ```
-composer install detrack/elasticroute
+composer require detrack/elasticroute
 ```
 In your code, set your default API Key (this can be retrieved from the dashboard of the web application:)
 ```php
