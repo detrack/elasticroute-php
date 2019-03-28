@@ -4,7 +4,7 @@ namespace Detrack\ElasticRoute;
 
 class Plan implements \JsonSerializable
 {
-    public static $baseURL = 'https://app.elasticroute.com/api/plan';
+    public static $baseURL = 'https://app.elasticroute.com/api/v1/plan';
     public static $defaultApiKey;
     public $apiKey;
     public $id = '';
