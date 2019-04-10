@@ -7,6 +7,21 @@ use Detrack\ElasticRoute\BadFieldException;
 
 final class PlanTest extends TestCase
 {
+    protected $proxy = [];
+
+    public function setUp(): void
+    {
+        if (getenv('elasticroute_proxy_enabled') == 'true') {
+            $this->proxy = [
+                CURLOPT_PROXY => getenv('elasticroute_proxy_url'),
+                CURLOPT_HEADEROPT => CURLHEADER_UNIFIED,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_SSL_VERIFYSTATUS => false,
+            ];
+        }
+    }
+
     public function testWillThrowExceptionWhenNoIdIsSet()
     {
         $plan = new Plan();
@@ -55,7 +70,7 @@ final class PlanTest extends TestCase
         $plan->vehicles = $vehicles;
         $plan->stops = $stops;
         try {
-            $plan->solve();
+            $plan->solve($this->proxy);
             $this->fail('No exception thrown!');
         } catch (\RuntimeException $ex) {
             $this->assertStringMatchesFormat('API Return HTTP Code%a', $ex->getMessage());
