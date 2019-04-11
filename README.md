@@ -18,7 +18,7 @@ Install with composer:
 ```
 composer require detrack/elasticroute
 ```
-In your code, set your default API Key (this can be retrieved from the dashboard of the web application:)
+In your code, set your default API Key (this can be retrieved from the dashboard of the web application):
 ```php
 use Detrack\ElasticRoute\Plan;
 Plan::$defaultApiKey = "my_super_secret_key";
@@ -100,17 +100,17 @@ $morningShiftVan->from = 900;
 $morningShiftVan->till = 1200;
 // add to plan and solve...
 ```
-Dropping `from` and `till` keys from either class would result to it being defaulted to `avail_from` and `avail_to` keys in the `Plan->generalSettings` associative array, which in turn defaults to `590` and `1700`.
+Dropping `from` and `till` keys from either class would result to it being defaulted to `avail_from` and `avail_to` keys in the `Plan->generalSettings` associative array, which in turn defaults to `500` and `1700`.
 ### Setting home depots
 A "home depot" can be set for both Stops and Vehicles. A depot for stops indicate where a vehicle must pick up a stop's goods before arriving, and a depot for vehicles indicate the start and end point of a Vehicle's journey (this implicitly assigns the possible jobs a Vehicle can take).
 By default, for every stop and vehicle, if the depot field is not specified we will assume it to be the first depot.
 ```php
 $commonStop = new Stop();
-$commonStop->name = "Normal Delivery 1"
+$commonStop->name = "Normal Delivery 1";
 $commonStop->depot = "Main Warehouse";
 // set stop address and add to plan...
 $rareStop = new Stop();
-$rareStop->name = ""
+$rareStop->name = "Uncommon Delivery 1";
 $rareStop->depot = "Auxillary Warehouse";
 // set stop address and add to plan...
 $plan->vehicles = [
