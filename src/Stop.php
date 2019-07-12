@@ -21,8 +21,6 @@ class Stop implements \JsonSerializable
     public $group;
     /** @var string The name of the stop. Must be unique within the same Plan. */
     public $name;
-    /** @var string Allows you to limit what time windows can this stop be served during. This must correspond to a TimeWindow name in the same Plan. */
-    public $time_window;
     /** @var string The address of the stop. If you do not specify coordinates, this field must be present. */
     public $address;
     /** @var string For countries with postcode systems that allow identifying buildings with only the postal code, you can pass only the postal code without address or coordinates. */
