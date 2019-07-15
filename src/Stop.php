@@ -5,48 +5,85 @@ namespace Detrack\ElasticRoute;
 /**
  * Represents a Stop (destination) in your Plan. You must have a minimum of two stops in your Plan.
  *
- * @property-read string assign_to The name of a Vehicle in the same Plan that has been assigned to serve this Stop.
- * @property-read int run Run number, (the nth time the Vehicle returns to the depot and sets off again if there is not enough loading space or other constraints)
- * @property-read int sequence Sequence number, the nth stop this Vehicle is serving in the same run.
- * @property-read string eta Date of estimated time of arrival represented in the following format: "YYYY-MM-DD HH:MM:SS"
- * @property-read string exception Note indicating if there was any error in trying to serve this stop. "Unserved" indicates that this stop is unsolvable within the problem constraints.
+ * @property string $vehicle_type Allows you to limit what vehicle types can serve this stop. There must be a Vehicle with a corresponding type in the same Plan.
+ * @property string $depot        Allows you to specify which depot this stop's goods needs to be retrieved from first before it can be stored. This must correspond to a Depot name in the same Plan.
+ * @property string $name         The name of the stop. Must be unique within the same Plan.
+ * @property string $address      The address of the stop. If you do not specify coordinates, this field must be present.
+ * @property string $postal_code  For countries with postcode systems that allow identifying buildings with only the postal code, you can pass only the postal code without address or coordinates.
+ * @property float  $weight_load  Allows you to specify the weights of the goods to be served to this destination.
+ * @property float  $volume_load  Allows you to specify the volume of the goods to be served to this destination.
+ * @property float  $seating_load Allows you to specify pax service staff required to serve this destination.
+ * @property float  $service_time Allows you to specify how long a vehicle is assumed to spend servicing this stop.
+ * @property float  $lat          Allows you to specify coordinates for the stop instead of a human readable address. lng must also be specified.
+ * @property float  $lng          Allows you to specify coordinates for the stop instead of a human readable address. lat must also be specified.
+ * @property int    $from         Allows you to specify the earliest time this stop can be served. If left blank, will default to your service hours in General Settings.
+ * @property int    $till         Allows you to specify the latest time this stop can be served. If left blank, will default to your service hours in General Settings
+ * @property string $detrack_id   DASHBOARD ONLY: Detrack Job id for optional integration with the Detrack Dashboard, with one Job representing one Stop.
+ * @property string $address_1    DASHBOARD ONLY: line addresses used as an alternative to address or lat/lng
+ * @property string $address_2    DASHBOARD ONLY: line addresses used as an alternative to address or lat/lng
+ * @property string $address_3    DASHBOARD ONLY: line addresses used as an alternative to address or lat/lng
+ * @property string $country      DASHBOARD ONLY: line addresses used as an alternative to address or lat/lng
+ * @property string $city         DASHBOARD ONLY: line addresses used as an alternative to address or lat/lng
+ * @property string $state        DASHBOARD ONLY: line addresses used as an alternative to address or lat/lng
+ * @property-read string $assign_to         The name of a Vehicle in the same Plan that has been assigned to serve this Stop.
+ * @property-read int    $run               Run number, (the nth time the Vehicle returns to the depot and sets off again if there is not enough loading space or other constraints)
+ * @property-read int    $sequence          Sequence number, the nth stop this Vehicle is serving in the same run.
+ * @property-read string $eta               Date of estimated time of arrival represented in the following format: "YYYY-MM-DD HH:MM:SS"
+ * @property-read string $exception         Note indicating if there was any error in trying to serve this stop. "Unserved" indicates that this stop is unsolvable within the problem constraints. "Unmapped" indicates that the address of this stop cannot be geocoded.
+ * @property-read string $exception_reason  DASHBOARD ONLY: reason for unserved stop, as seen in the dashboard
+ * @property-read string $plan_vehicle_type DASHBOARD ONLY: the vehicle being assigned to the stop, as seen in the dashboard
+ * @property-read string $plan_depot        DASHBOARD ONLY: the depot being assigned to the stop, as seen in the dashboard
+ * @property-read string $plan_service_time DASHBOARD ONLY: the value of service_time taken in planning the spot, as seen in the dashboard
+ * @property-read string $mapped_at         DASHBOARD ONLY: UTC time when the address is ocnverted into its coressponding latitude and longitude, as seen in the dashboard
+ * @property-read string $planned_at        DASHBOARD ONLY: UTC time when the stop was planned, as seen in the dashboard
+ * @property-read string $created_at        DASHBOARD ONLY: UTC time when the stop was created, as seen in the dashboard
+ * @property-read string $updated_at        DASHBOARD ONLY: UTC time when the stop was updated, as seen in the dashboard
+ * @property-read bool   $sorted            DASHBOARD ONLY: Indicates whether the run of the stop is being manually resorted in the dashboard
+ * @property-read bool   $violations        DASHBOARD ONLY: Indicates violations after the run has been manually resorted, e.g. if the sorted run exceeds the Time Window of the stop or the Vehicle Working Hours
  */
 class Stop implements \JsonSerializable
 {
-    /** @var string Allows you to limit what vehicle types can serve this stop. There must be a Vehicle with a corresponding type in the same Plan. */
-    public $vehicle_type;
-    /** @var string Allows you to specify which depot this stop's goods needs to be retrieved from first before it can be stored. This must correspond to a Depot name in the same Plan. */
-    public $depot;
-    /** @var string|null RESERVED */
-    public $group;
-    /** @var string The name of the stop. Must be unique within the same Plan. */
-    public $name;
-    /** @var string The address of the stop. If you do not specify coordinates, this field must be present. */
-    public $address;
-    /** @var string For countries with postcode systems that allow identifying buildings with only the postal code, you can pass only the postal code without address or coordinates. */
-    public $postal_code;
-    /** @var float Allows you to specify the weights of the goods to be served to this destination. */
-    public $weight_load;
-    /** @var float Allows you to specify the volume of the goods to be served to this destination. */
-    public $volume_load;
-    /** @var float Allows you to specify pax service staff required to serve this destination. */
-    public $seating_load;
-    /** @var float Allows you to specify how long a vehicle is assumed to spend servicing this stop. */
-    public $service_time;
-    /** @var float Allows you to specify coordinates for the stop instead of a human readable address. lng must also be specified. */
-    public $lat;
-    /** @var float Allows you to specify coordinates for the stop instead of a human readable address. lat must also be specified. */
-    public $lng;
-    /** @var int Allows you to specify the earliest time this stop can be served. If left blank, will default to your service hours in General Settings. */
-    public $from;
-    /** @var int Allows you to specify the latest time this stop can be served. If left blank, will default to your service hours in General Settings */
-    public $till;
-    //readonlies, see class properties
-    public $assign_to;
-    public $run;
-    public $sequence;
-    public $eta;
-    public $exception;
+    /** @var array encapsulates the data of the model */
+    protected $data = [
+        'detrack_id' => null,
+        'vehicle_type' => null,
+        'depot' => null,
+        'group' => null,
+        'date' => null,
+        'name' => null,
+        'time_window' => null,
+        'address' => null,
+        'address_1' => null,
+        'address_2' => null,
+        'address_3' => null,
+        'postal_code' => null,
+        'city' => null,
+        'state' => null,
+        'country' => null,
+        'weight_load' => null,
+        'volume_load' => null,
+        'seating_load' => null,
+        'service_time' => null,
+        'from' => null,
+        'till' => null,
+        'assign_to' => null,
+        'run' => null,
+        'sequence' => null,
+        'eta' => null,
+        'lat' => null,
+        'lng' => null,
+        'exception' => null,
+        'exception_reason' => null,
+        'violations' => null,
+        'sorted' => false,
+        'plan_vehicle_type' => null,
+        'plan_depot' => null,
+        'plan_time_window' => null,
+        'plan_service_time' => null,
+    ];
+
+    /** @var mixed[] keeps track of the immediate previous value of the attribute */
+    protected $previousAttributeValues = [];
 
     public function __construct($data = [])
     {
@@ -55,29 +92,30 @@ class Stop implements \JsonSerializable
         }
     }
 
+    public function __set($key, $value)
+    {
+        // if this key exists in the data array
+        if (array_key_exists($key, $this->data)) {
+            // if there was a change in data values
+            if (is_null($this->data[$key]) || $this->data[$key] !== $value) {
+                // save it in previous attributes, just in case we need it later
+                $this->previousAttributeValues[$key] = $this->data[$key];
+                $this->data[$key] = $value;
+            }
+        }
+    }
+
+    public function __get($key)
+    {
+        return $this->data[$key];
+    }
+
     public function jsonSerialize()
     {
-        $returnArray = [
-            'vehicle_type' => $this->vehicle_type,
-            'depot' => $this->depot,
-            'group' => $this->group,
-            'name' => $this->name,
-            'address' => $this->address,
-            'postal_code' => $this->postal_code,
-            'weight_load' => $this->weight_load,
-            'volume_load' => $this->volume_load,
-            'seating_load' => $this->seating_load,
-            'service_time' => $this->service_time,
-            'assign_to' => $this->assign_to,
-            'run' => $this->run,
-            'sequence' => $this->sequence,
-            'eta' => $this->eta,
-            'lat' => $this->lat,
-            'lng' => $this->lng,
-            'exception' => $this->exception,
-            'from' => $this->from,
-            'till' => $this->till,
-        ];
+        $callback = function ($k, $v) {
+            return !(is_null($v) && !array_key_exists($k, $this->previousAttributeValues));
+        };
+        $returnArray = array_filter($this->data, $callback, ARRAY_FILTER_USE_BOTH);
         /*
         * HOTFIX
         * ISSUE: Server-side validation reports false negative when lat field is null but address field is present
@@ -117,8 +155,10 @@ class Stop implements \JsonSerializable
                 throw new BadFieldException('Stop name cannot be more than 255 chars', $stop);
             }
             //distinct
-            if (count(array_filter(array_column($stops, 'name'), function ($v) use ($stop) {
-                return $v == $stop['name'];
+            if (count(array_filter(array_map(function ($s) {
+                return ($s instanceof self | $s instanceof \stdClass) ? $s->name : $s['name'];
+            }, $stops), function ($s) use ($stop) {
+                return $s == $stop['name'];
             })) > 1) {
                 throw new BadFieldException('Stop name must be distinct', $stop);
             }
