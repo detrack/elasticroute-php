@@ -46,6 +46,24 @@ final class TestDashboardClient extends TestCase
         $client->uploadStopsOnDate($stops, date('Y-m-d'), $this->proxy);
     }
 
+    public function testDeleteStops()
+    {
+        $this->testUploadStops();
+        $client = new DashboardClient();
+        $client->apiKey = getenv('elasticroute_api_key');
+        DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
+        $client->deleteAllStopsOnDate(date('Y-m-d'), $this->proxy);
+    }
+    
+    public function testStartPlan()
+    {
+        $this->testUploadStops();
+        $client = new DashboardClient();
+        $client->apiKey = getenv('elasticroute_api_key');
+        DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
+        $client->startPlanningOnDate(date('Y-m-d'), $this->proxy);
+    }
+
     public function testUploadVehicles()
     {
         $client = new DashboardClient();
@@ -53,10 +71,10 @@ final class TestDashboardClient extends TestCase
         DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
         $vehicles = [
             [
-                'name' => 'Van 1',
+                'name' => 'Van1',
             ],
             [
-                'name' => 'Van 2',
+                'name' => 'Van2',
             ],
         ];
         $client->uploadVehicles($vehicles, $this->proxy);
