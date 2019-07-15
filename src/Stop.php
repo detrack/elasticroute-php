@@ -62,7 +62,6 @@ class Stop implements \JsonSerializable
             'depot' => $this->depot,
             'group' => $this->group,
             'name' => $this->name,
-            'time_window' => $this->time_window,
             'address' => $this->address,
             'postal_code' => $this->postal_code,
             'weight_load' => $this->weight_load,
