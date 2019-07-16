@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use Detrack\ElasticRoute\Stop;
 use Detrack\ElasticRoute\DashboardClient;
 
 final class TestDashboardClient extends TestCase
@@ -18,6 +19,8 @@ final class TestDashboardClient extends TestCase
                 CURLOPT_SSL_VERIFYSTATUS => false,
             ];
         }
+        DashboardClient::$defaultApiKey = getenv('elasticroute_api_key');
+        DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
     }
 
     public function testUploadStops()
@@ -41,8 +44,6 @@ final class TestDashboardClient extends TestCase
                 'address' => '80 Mandai Lake Road Singapore 729826',
             ],
         ];
-        $client->apiKey = getenv('elasticroute_api_key');
-        DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
         $client->uploadStopsOnDate($stops, date('Y-m-d'), $this->proxy);
     }
 
@@ -50,25 +51,30 @@ final class TestDashboardClient extends TestCase
     {
         $this->testUploadStops();
         $client = new DashboardClient();
-        $client->apiKey = getenv('elasticroute_api_key');
-        DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
         $client->deleteAllStopsOnDate(date('Y-m-d'), $this->proxy);
     }
-    
+
+    public function testListStops()
+    {
+        $this->testUploadStops();
+        $client = new DashboardClient();
+        $stops = $client->listAllStopsOnDate(date('Y-m-d'), 100, 1, $this->proxy);
+        $this->assertEquals(4, count($stops));
+        $this->assertContainsOnlyInstancesOf(Stop::class, $stops);
+    }
+
     public function testStartPlan()
     {
         $this->testUploadStops();
         $client = new DashboardClient();
-        $client->apiKey = getenv('elasticroute_api_key');
-        DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
         $client->startPlanningOnDate(date('Y-m-d'), $this->proxy);
+        $status = $client->getPlanStatusOnDate(date('Y-m-d'), $this->proxy);
+        $this->assertEquals('planned', $status);
     }
 
     public function testUploadVehicles()
     {
         $client = new DashboardClient();
-        $client->apiKey = getenv('elasticroute_api_key');
-        DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
         $vehicles = [
             [
                 'name' => 'Van1',
