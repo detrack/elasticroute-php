@@ -16,7 +16,18 @@ You don't need to. Just throw us an array of stops, vehicles and depots and we w
 
 **BETA RELASE:**  ElasticRoute is completely free-to-use until 30th April 2020!
 
-## Quick Start Guide
+## Preface
+
+ElasticRoute offers two APIs depending on your needs, and different sections of this documentation are relevant to you depending on which API you wish to interact with:
+
+-   **Routing Engine API** – if you already have your own fleet management system and you only wish to use ElasticRoute to solve the routing problem and inspect the solution. This is effectively **using ElasticRoute in a headless environment**, a.k.a. "routing as a service".
+-   **Dashboard API** – if your team uses the ElasticRoute web application to review stops and vehicles on a map, and you wish to **push data from your existing applications to the ElasticRoute dashboard**.
+
+Regardless of how you use ElasticRoute, this client library is capable of interacting with both services.
+
+## Quick Start Guide (Routing Engine API)
+
+> Refer to this section if you have a separate application to display the results on a map, table or whichever method you prefer, as long as you are not using the ElasticRoute dashboard as-is.
 
 Install with composer:
 
@@ -105,6 +116,7 @@ Quick notes:
 -   The individual stops, vehicles and depots can be passed into the `Plan` as either associative arrays or instances of `Detrack\ElasticRoute\Stop`, `Detrack\ElasticRoute\Vehicle` and `Detrack\ElasticRoute\Depot` respectively. Respective properties are the same as the associative array keys.
 -   Solving a plan returns you an instance of `Detrack\ElasticRoute\Solution`, that has mostly the same properties as `Detrack\ElasticRoute\Plan` but not the same functions (see advanced usage)
 -   Unlike when creating `Plan`'s, `Solution->stops|vehicles|depots` returns you instances of `Stop`, `Vehicle` and `Depot` accordingly instead of associative arrays.
+-   The Stops created by this method (attached to a `Detrack\ElasticRoute\Plan` object) **cannot** be seen in the dashboard of the ElasticRoute web application. Please refer to the Dashboard API.
 
 ## Advanced Usage
 
@@ -189,3 +201,110 @@ while($solution->status != "planned"){
 Setting the `connectionType` to `"poll"` will cause the server to return you a response immediately after parsing the request data. You can monitor the status with the `status` and `progress` properties while fetching updates with the `refresh()` method.
 
 In addition, setting the `connectionType` to `"webhook"` will also cause the server to post a copy of the response to your said webhook. The exact location of the webhook can be specified with the `webhook` property of `Plan` objects.
+
+## Quick Start Guide (Dashboard API)
+
+> Refer to this section if you wish to push data to the Dashboard API that other users in your organisation can review.
+
+If you haven't already, install the library:
+
+    composer require detrack/elasticroute
+
+The service revolves around the `Detrack\ElasticRoute\DashboardClient` object. It is responsible for pushing your `Detrack\ElasticRoute\Stop` and `Detrack\ElasticRoute\Vehicle` to the ElasticRoute Dashboard where your team can review and edit.
+
+Set the default API Key (retrieved from the Dashboard, the same key can be used for both the Routing Engine API and the Dashboard API):
+
+```php
+use Detrack\ElasticRoute\DashboardClient;
+
+DashboardClient::$defaultApiKey = "your-super-secret-key";
+```
+
+Next, you can create a list of stops, either as associative arrays or instances of the `Detrack\ElasticRoute\Stop` object:
+
+```php
+use Detrack\ElasticRoute\Stop;
+
+$stop1 = [
+    'name' => 'SUTD',
+    'address' => '8 Somapah Road Singapore 487372',
+];
+$stop2 = [
+    'name' => 'Changi Airport',
+    'address' => '80 Airport Boulevard (S)819642',
+],
+$stop3 = new Stop();
+$stop3->name = 'Gardens By the Bay';
+$stop3->address = '18 Marina Gardens Drive Singapore 018953';
+$stop4 = new Stop();
+$stop4->name = 'Singapore Zoo';
+$stop4->address = '80 Mandai Lake Road Singapore 729826';
+
+$stops = [$stop1, $stop2, $stop3, $stop4];
+```
+
+Push them to the dashboard using the `uploadStopsOnDate` method:
+
+```php
+$client = new DashboardClient();
+$client->uploadStopsOnDate($stops, date('Y-m-d'));
+```
+
+This would set today's dashboard to show these stops. Use the second argument to pass a string under the `YYYY-MM-DD` format to change the date you want to upload these stops under.
+
+> **Note:** this method would **clear all existing stops** on the dashboard for that date and replace them with the ones passed to the method.
+
+To retrieve existing stops on the dashboard, use the `listAllStopsOnDate` method:
+
+```php
+$stops = $client->listAllStopsOnDate(date('Y-m-d'));
+```
+
+By default, this would list 100 stops on that date. Pass a second parameter to denote how many you wish to retrieve:
+
+```php
+$stops = $client->listAllStopsOnDate(date('Y-m-d'), 50);
+```
+
+And a third parameter for pagination:
+
+```php
+$stops = $client->listAllStopsOnDate(date('Y-m-d'), 50, 2);
+```
+
+To delete all stops on a date, use the `deleteAllStopsOnDate` method:
+
+```php
+$client->deleteAllStopsOnDate(date('Y-m-d'));
+```
+
+### Vehicles
+
+Vehicles can also be pushed to the Dashboard (found under settings in the Dashboard) using the `uploadVehicles` method:
+
+```php
+use Detrack\ElasticRoute\Vehicle;
+
+$vehicle1 = [
+	'name' => 'Van 1',
+]
+
+$vehicle2 = new Vehicle();
+$vehicle2->name = 'Van 1';
+
+$vehicles = [$vehicle1, $vehicle2];
+
+$client->uploadVehicles($vehicles);
+```
+
+> **Note:** again, this method would **clear all existing vehicles** you have on the Dashboard.
+
+### Planning
+
+The planning process for a given day/date can be started with the `startPlanningOnDate` method:
+
+```php
+$client->startPlanningOnDate(date('Y-m-d'));
+```
+
+This would automatically start the planning process on the Dashboard. Note that unlike the Routing Engine API, you **cannot** inspect the results of the route plan through the Dashboard API, you or your team must use the ElasticRoute web application to open the Dashboard to inspect the solution.
