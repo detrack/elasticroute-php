@@ -194,4 +194,69 @@ class Stop implements \JsonSerializable
 
         return true;
     }
+
+    /**
+     * Validates a list of Stops and asserts that their fields are suitable to be passed to the API in a dashboard context without error.
+     *
+     * @param Stop[] $stops a list of stops
+     *
+     * @throws BadFieldException if validation error occurs
+     *
+     * @return bool returns true upon sucessful validation
+     */
+    public function validateStopsForDashboard($stops)
+    {
+        foreach ($stops as $stop) {
+            if ($stop instanceof self) {
+                $stop = $stop->jsonSerialize();
+            } elseif ($stop instanceof \stdClass) {
+                $stop = json_decode(json_encode($stop), true);
+            }
+            //check stop.name
+            //required
+            if (!isset($stop['name']) || $stop['name'] === '') {
+                throw new BadFieldException('Stop name cannot be null', $stop);
+            }
+            //max:255
+            if (strlen($stop['name']) > 255) {
+                throw new BadFieldException('Stop name cannot be more than 255 chars', $stop);
+            }
+            //distinct
+            if (count(array_filter(array_map(function ($s) {
+                return ($s instanceof self | $s instanceof \stdClass) ? $s->name : $s['name'];
+            }, $stops), function ($s) use ($stop) {
+                return $s == $stop['name'];
+            })) > 1) {
+                throw new BadFieldException('Stop name must be distinct', $stop);
+            }
+            //check address/postcode/latlong
+            if ((!isset($stop['lat']) || $stop['lat'] === '') || (!isset($stop['lng']) || $stop['lng'] === '')) {
+                //if no coordinates found, check for address
+                if (!isset($stop['address']) || $stop['address'] === '') {
+                    //if no address found, check for postcode for supported countries
+                    $line1 = !isset($stop['address_1']) || $stop['address_1'] === '';
+                    $line2 = !isset($stop['address_2']) || $stop['address_2'] === '';
+                    $line3 = !isset($stop['address_3']) || $stop['address_3'] === '';
+                    if ($line1 && $line2 && $line3) {
+                        throw new BadFieldException('No form of address given for Stop', $stop);
+                    }
+                }
+            }
+            //check numeric|min:0|nullable for the following:
+            //weight_load, volume_load, seating_load, service_time
+            $postiveNumericFields = ['weight_load', 'volume_load', 'seating_load', 'service_time'];
+            foreach ($postiveNumericFields as $field) {
+                if (isset($stop[$field])) {
+                    if (!is_numeric($stop[$field])) {
+                        throw new BadFieldException('Stop '.$field.' must be numeric', $stop);
+                    }
+                    if ((float) $stop[$field] < 0) {
+                        throw new BadFieldException('Stop '.$field.' cannot be negative', $stop);
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
 }
