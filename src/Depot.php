@@ -4,11 +4,17 @@ namespace Detrack\ElasticRoute;
 
 class Depot implements \JsonSerializable
 {
+    /** @var string Name of the depot. Must be unique. */
     public $name;
+    /** @var string Address of the depot. If the lat and lng are not given, the address will be used for geocoding. */
     public $address;
+    /** @var string Postal code of the depot. */
     public $postal_code;
+    /** @var float Latitude of the stop. Required if address is not given. */
     public $lat;
+    /** @var float Longitude of the depot. Required if address is not given. */
     public $lng;
+    /** @var bool Determines whether this would be the first depot that will automatically be used for vehicles and stops that do not have a depot specified. */
     public $default;
 
     public function __construct($data = [])
@@ -30,6 +36,16 @@ class Depot implements \JsonSerializable
         ];
     }
 
+    /**
+     * Determines whether this list of depots are valid to be submitted to the Routing Engine API.
+     *
+     * @param mixed $depots          The array of depots, either as instances of the Depot class or as associative arrays
+     * @param mixed $generalSettings The contextual generalSettings array to be submitted to the Routing Engine API
+     *
+     * @throws BadFieldException on validation failure, with exception message containing details of the validation error
+     *
+     * @return bool returns true on successful validation
+     */
     public static function validateDepots($depots, $generalSettings = [])
     {
         //check depots
