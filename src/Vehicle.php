@@ -84,6 +84,13 @@ class Vehicle implements \JsonSerializable
         return $this->data[$key];
     }
 
+    /**
+     * Converts this Vehicle into an associative array for use with json_encode.
+     *
+     * In an attempt to prevent accidental overwrites on the Dashboard and to decrease the size of the JSON document sent to the server, this function will only return attributes that have been modified since creation.
+     *
+     * @return mixed[] an associative array to be encoded into JSON format
+     */
     public function jsonSerialize()
     {
         $callback = function ($k, $v) {
@@ -93,6 +100,16 @@ class Vehicle implements \JsonSerializable
         return array_filter($this->data, $callback, ARRAY_FILTER_USE_BOTH);
     }
 
+    /**
+     * Determines whether this list of vehicles are valid to be submitted to the Routing Engine API.
+     *
+     * @param mixed $vehicles        The array of vehicles, either as instances of the Vehicle class or as associative arrays
+     * @param mixed $generalSettings The contextual generalSettings array to be submitted to the Routing Engine API
+     *
+     * @throws BadFieldException on validation failure, with exception message containing details of the validation error
+     *
+     * @return bool returns true on successful validation
+     */
     public static function validateVehicles($vehicles)
     {
         //check vehicles
