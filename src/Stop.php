@@ -110,6 +110,13 @@ class Stop implements \JsonSerializable
         return $this->data[$key];
     }
 
+    /**
+     * Converts this Stop into an associative array for use with json_encode.
+     *
+     * In an attempt to prevent accidental overwrites on the Dashboard and to decrease the size of the JSON document sent to the server, this function will only return attributes that have been modified since creation.
+     *
+     * @return mixed[] an associative array to be encoded into JSON format
+     */
     public function jsonSerialize()
     {
         $callback = function ($k, $v) {
@@ -132,6 +139,16 @@ class Stop implements \JsonSerializable
         return $returnArray;
     }
 
+    /**
+     * Determines whether this list of stops are valid to be submitted to the Routing Engine API.
+     *
+     * @param mixed $stops           The array of stops, either as instances of the Stop class or as associative arrays
+     * @param mixed $generalSettings The contextual generalSettings array to be submitted to the Routing Engine API
+     *
+     * @throws BadFieldException on validation failure, with exception message containing details of the validation error
+     *
+     * @return bool returns true on successful validation
+     */
     public static function validateStops($stops, $generalSettings = [])
     {
         //check stop
@@ -200,7 +217,7 @@ class Stop implements \JsonSerializable
      *
      * @param Stop[] $stops a list of stops
      *
-     * @throws BadFieldException if validation error occurs
+     * @throws BadFieldException on validation failure, with exception message containing details of the validation error
      *
      * @return bool returns true upon sucessful validation
      */
