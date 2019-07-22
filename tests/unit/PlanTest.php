@@ -76,6 +76,6 @@ final class PlanTest extends TestCase
             $this->assertStringMatchesFormat('API Return HTTP Code%a', $ex->getMessage());
         }
         //reset the changed url or we gg lol
-        Plan::$baseURL = getenv('elasticroute_path');
+        Plan::$baseURL = getenv('elasticroute_path').'/plan';
     }
 }
