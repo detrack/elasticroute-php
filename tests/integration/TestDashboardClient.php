@@ -19,8 +19,6 @@ final class TestDashboardClient extends TestCase
                 CURLOPT_SSL_VERIFYSTATUS => false,
             ];
         }
-        DashboardClient::$defaultApiKey = getenv('elasticroute_api_key');
-        DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
     }
 
     public function testUploadStops()
