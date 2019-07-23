@@ -19,6 +19,7 @@ namespace Detrack\ElasticRoute;
  * @property int    $from         Allows you to specify the earliest time this stop can be served. If left blank, will default to your service hours in General Settings.
  * @property int    $till         Allows you to specify the latest time this stop can be served. If left blank, will default to your service hours in General Settings
  * @property string $detrack_id   DASHBOARD ONLY: Detrack Job id for optional integration with the Detrack Dashboard, with one Job representing one Stop.
+ * @property string $date         DASHBOARD ONLY: The date to save this stop to. Only applicable for CRUD operations on individual stops.
  * @property string $address_1    DASHBOARD ONLY: line addresses used as an alternative to address or lat/lng
  * @property string $address_2    DASHBOARD ONLY: line addresses used as an alternative to address or lat/lng
  * @property string $address_3    DASHBOARD ONLY: line addresses used as an alternative to address or lat/lng
@@ -41,7 +42,7 @@ namespace Detrack\ElasticRoute;
  * @property-read bool   $sorted            DASHBOARD ONLY: Indicates whether the run of the stop is being manually resorted in the dashboard
  * @property-read bool   $violations        DASHBOARD ONLY: Indicates violations after the run has been manually resorted, e.g. if the sorted run exceeds the Time Window of the stop or the Vehicle Working Hours
  */
-class Stop implements \JsonSerializable
+class Stop extends Model implements \JsonSerializable
 {
     /** @var array encapsulates the data of the model */
     protected $data = [
@@ -82,34 +83,6 @@ class Stop implements \JsonSerializable
         'plan_service_time' => null,
     ];
 
-    /** @var mixed[] keeps track of the immediate previous value of the attribute */
-    protected $previousAttributeValues = [];
-
-    public function __construct($data = [])
-    {
-        foreach ($data as $dataKey => $dataValue) {
-            $this->$dataKey = $dataValue;
-        }
-    }
-
-    public function __set($key, $value)
-    {
-        // if this key exists in the data array
-        if (array_key_exists($key, $this->data)) {
-            // if there was a change in data values
-            if (is_null($this->data[$key]) || $this->data[$key] !== $value) {
-                // save it in previous attributes, just in case we need it later
-                $this->previousAttributeValues[$key] = $this->data[$key];
-                $this->data[$key] = $value;
-            }
-        }
-    }
-
-    public function __get($key)
-    {
-        return $this->data[$key];
-    }
-
     /**
      * Converts this Stop into an associative array for use with json_encode.
      *
@@ -119,10 +92,7 @@ class Stop implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $callback = function ($k, $v) {
-            return !(is_null($v) && !array_key_exists($k, $this->previousAttributeValues));
-        };
-        $returnArray = array_filter($this->data, $callback, ARRAY_FILTER_USE_BOTH);
+        $returnArray = parent::jsonSerialize();
         /*
         * HOTFIX
         * ISSUE: Server-side validation reports false negative when lat field is null but address field is present
@@ -275,5 +245,103 @@ class Stop implements \JsonSerializable
         }
 
         return true;
+    }
+
+    /**
+     * Common path in the REST API.
+     */
+    protected static $path = 'stops';
+
+    /**
+     * Internal function for generating the internal prefix for all endpoints relating to single route CRUD.
+     *
+     * @return string the full path
+     */
+    protected function resolvePath()
+    {
+        $date = $this->previousAttributeValues['date'] ?? $this->date;
+
+        return DashboardClient::$baseUrl.'/'.static::$path.'/'.$date;
+    }
+
+    /**
+     * Overrides parent Model function to tell the model where to send the POST request for creating stops.
+     *
+     * @return string the full path
+     */
+    protected function resolveCreatePath()
+    {
+        return $this->resolvePath();
+    }
+
+    /**
+     * Overrides parent Model function to tell the model what to send in the POST request body for creating stops.
+     *
+     * This will validate the stop before sending it.
+     *
+     * @throws BadFieldException upon validation error
+     *
+     * @return mixed associative array to send to json_encode
+     */
+    protected function resolveCreateBody()
+    {
+        static::validateStopsForDashboard([$this]);
+
+        return parent::resolveCreateBody();
+    }
+
+    /**
+     * Overrides parent Model function to tell the model where to send the GET request for retrieving stops.
+     *
+     * @return string the full path
+     */
+    protected function resolveRetrievePath()
+    {
+        $name = $this->name;
+
+        return $this->resolvePath().'/'.$name;
+    }
+
+    /**
+     * Overrides parent Model function to tell the model where to send the PUT request for updating stops.
+     *
+     * This will attempt to use the previous name if any, to allow the user to be able to change the name of the stop without creating a new model.
+     * Because if the current name is used, it would create an additional stop.
+     *
+     * @return string the full path
+     */
+    protected function resolveUpdatePath()
+    {
+        $name = $this->previousAttributeValues['name'] ?? $this->name;
+
+        return $this->resolvePath().'/'.$name;
+    }
+
+    /**
+     * Overrides parent Model function to tell the model what to send in the PUT request for updating stops.
+     *
+     * This will validate the Stop before sending it.
+     *
+     * @throws BadFieldException upon validation error
+     *
+     * @return mixed associative array to send to json_encode
+     */
+    protected function resolveUpdateBody()
+    {
+        static::validateStopsForDashboard([$this]);
+
+        return parent::resolveUpdateBody();
+    }
+
+    /**
+     * Overrides parent Model function to tell the model what to send in the DELETE request for deleting stops.
+     *
+     * @return string the full path
+     */
+    protected function resolveDeletePath()
+    {
+        $name = $this->name;
+
+        return $this->resolvePath().'/'.$name;
     }
 }
