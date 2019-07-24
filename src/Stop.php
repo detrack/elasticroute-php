@@ -165,7 +165,7 @@ class Stop extends Model
      *
      * @return bool returns true upon sucessful validation
      */
-    public function validateStopsForDashboard($stops)
+    public static function validateStopsForDashboard($stops)
     {
         foreach ($stops as $stop) {
             if ($stop instanceof self) {
