@@ -24,6 +24,7 @@ final class VehicleTest extends TestCase
     public function testCreate()
     {
         $client = new DashboardClient();
+        $client->curlOptions = $this->proxy;
         $testData = new \stdClass();
         $testData->name = 'Testing Vehicle 123'.time();
         $testData->weight_capacity = 8000;
@@ -48,6 +49,7 @@ final class VehicleTest extends TestCase
     {
         $createdVehicle = $this->testCreate();
         $client = new DashboardClient();
+        $client->curlOptions = $this->proxy;
         $vehicle = new Vehicle();
         $vehicle->dashboardClient = $client;
         $vehicle->name = $createdVehicle->name;

@@ -121,6 +121,7 @@ abstract class Model implements JsonSerializable
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->dashboardClient->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->resolveCreateBody()));
         $responseString = curl_exec($ch);
@@ -195,6 +196,7 @@ abstract class Model implements JsonSerializable
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->dashboardClient->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
         $responseString = curl_exec($ch);
         $error = curl_error($ch);
@@ -274,6 +276,7 @@ abstract class Model implements JsonSerializable
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->dashboardClient->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->resolveDeleteBody()));
         $responseString = curl_exec($ch);
@@ -345,6 +348,7 @@ abstract class Model implements JsonSerializable
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->dashboardClient->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->resolveUpdateBody()));
         $responseString = curl_exec($ch);

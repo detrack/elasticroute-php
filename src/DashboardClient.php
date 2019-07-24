@@ -9,6 +9,7 @@ class DashboardClient
     public static $baseUrl = 'https://app.elasticroute.com/api/v1/account';
     public static $defaultApiKey = null;
     public $apiKey = null;
+    public $curlOptions = [];
 
     /**
      * Uploads the given stops to a certain date on the dashboard.
@@ -40,6 +41,7 @@ class DashboardClient
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
 
         Stop::validateStops($stops);
@@ -89,6 +91,7 @@ class DashboardClient
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
 
         $responseString = curl_exec($ch);
@@ -143,6 +146,7 @@ class DashboardClient
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
         $responseString = curl_exec($ch);
         $error = curl_error($ch);
@@ -187,6 +191,7 @@ class DashboardClient
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
         $responseString = curl_exec($ch);
         $error = curl_error($ch);
@@ -232,6 +237,7 @@ class DashboardClient
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
         $responseString = curl_exec($ch);
         $error = curl_error($ch);
@@ -272,6 +278,7 @@ class DashboardClient
             'Content-Type: application/json',
             'Authorization: Bearer '.$apiKey,
         ]);
+        curl_setopt_array($ch, $this->curlOptions ?? []);
         curl_setopt_array($ch, $curlOptions);
 
         Vehicle::validateVehicles($vehicles);

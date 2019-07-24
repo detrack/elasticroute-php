@@ -24,6 +24,7 @@ final class StopTest extends TestCase
     public function testCreate()
     {
         $client = new DashboardClient();
+        $client->curlOptions = $this->proxy;
         $testData = new \stdClass();
         $testData->date = date('Y-m-d');
         $testData->name = 'Testing Stop 123'.time();
@@ -49,6 +50,7 @@ final class StopTest extends TestCase
     {
         $createdStop = $this->testCreate();
         $client = new DashboardClient();
+        $client->curlOptions = $this->proxy;
         $stop = new Stop();
         $stop->dashboardClient = $client;
         $stop->date = $createdStop->date;
