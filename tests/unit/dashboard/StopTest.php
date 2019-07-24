@@ -16,6 +16,8 @@ final class StopTest extends TestCase
                 CURLOPT_SSL_VERIFYHOST => false,
                 CURLOPT_SSL_VERIFYSTATUS => false,
             ];
+        } else {
+            $this->proxy = [];
         }
         DashboardClient::$defaultApiKey = getenv('elasticroute_api_key');
         DashboardClient::$baseUrl = 'https://staging.elasticroute.com/api/v1'.'/account';
