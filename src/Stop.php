@@ -42,7 +42,7 @@ namespace Detrack\ElasticRoute;
  * @property-read bool   $sorted            DASHBOARD ONLY: Indicates whether the run of the stop is being manually resorted in the dashboard
  * @property-read bool   $violations        DASHBOARD ONLY: Indicates violations after the run has been manually resorted, e.g. if the sorted run exceeds the Time Window of the stop or the Vehicle Working Hours
  */
-class Stop extends Model implements \JsonSerializable
+class Stop extends Model
 {
     /** @var array encapsulates the data of the model */
     protected $data = [
@@ -82,32 +82,6 @@ class Stop extends Model implements \JsonSerializable
         'plan_time_window' => null,
         'plan_service_time' => null,
     ];
-
-    /**
-     * Converts this Stop into an associative array for use with json_encode.
-     *
-     * In an attempt to prevent accidental overwrites on the Dashboard and to decrease the size of the JSON document sent to the server, this function will only return attributes that have been modified since creation.
-     *
-     * @return mixed[] an associative array to be encoded into JSON format
-     */
-    public function jsonSerialize()
-    {
-        $returnArray = parent::jsonSerialize();
-        /*
-        * HOTFIX
-        * ISSUE: Server-side validation reports false negative when lat field is null but address field is present
-        * CAUSE: Server correctly places valid coordinates at a higher prirority than address, but erroneously thinks that null is a valid coordinate
-        * HOTFIX: On the client side, unset coordinates if coordinates is null
-        **/
-        if (is_null($returnArray['lat'])) {
-            unset($returnArray['lat']);
-        }
-        if (is_null($returnArray['lng'])) {
-            unset($returnArray['lng']);
-        }
-        /* HOTFIX END **/
-        return $returnArray;
-    }
 
     /**
      * Determines whether this list of stops are valid to be submitted to the Routing Engine API.

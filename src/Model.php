@@ -2,7 +2,9 @@
 
 namespace Detrack\ElasticRoute;
 
-abstract class Model
+use JsonSerializable;
+
+abstract class Model implements JsonSerializable
 {
     /** @var array encapsulates the data of the model */
     protected $data = [];
@@ -52,7 +54,7 @@ abstract class Model
      */
     public function jsonSerialize()
     {
-        $callback = function ($k, $v) {
+        $callback = function ($v, $k) {
             return !(is_null($v) && !array_key_exists($k, $this->previousAttributeValues));
         };
         $returnArray = array_filter($this->data, $callback, ARRAY_FILTER_USE_BOTH);
