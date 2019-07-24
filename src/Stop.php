@@ -273,7 +273,7 @@ class Stop extends Model
     {
         $name = $this->name;
 
-        return $this->resolvePath().'/'.$name;
+        return $this->resolvePath().'/'.rawurlencode($name);
     }
 
     /**
@@ -288,7 +288,7 @@ class Stop extends Model
     {
         $name = $this->previousAttributeValues['name'] ?? $this->name;
 
-        return $this->resolvePath().'/'.$name;
+        return $this->resolvePath().'/'.rawurlencode($name);
     }
 
     /**
@@ -316,6 +316,6 @@ class Stop extends Model
     {
         $name = $this->name;
 
-        return $this->resolvePath().'/'.$name;
+        return $this->resolvePath().'/'.rawurlencode($name);
     }
 }

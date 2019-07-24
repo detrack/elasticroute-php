@@ -147,7 +147,7 @@ class Vehicle extends Model
      */
     protected function resolveRetrievePath()
     {
-        return $this->resolvePath().'/'.$this->name;
+        return $this->resolvePath().'/'.rawurlencode($this->name);
     }
 
     /**
@@ -162,7 +162,7 @@ class Vehicle extends Model
     {
         $name = $this->previousAttributeValues['name'] ?? $this->name;
 
-        return $this->resolvePath().'/'.$name;
+        return $this->resolvePath().'/'.rawurlencode($name);
     }
 
     /**
@@ -172,6 +172,6 @@ class Vehicle extends Model
      */
     protected function resolveDeletePath()
     {
-        return $this->resolvePath().'/'.$this->name;
+        return $this->resolvePath().'/'.rawurlencode($this->name);
     }
 }
