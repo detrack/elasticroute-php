@@ -55,7 +55,7 @@ abstract class Model implements JsonSerializable
     public function jsonSerialize()
     {
         $callback = function ($v, $k) {
-            return !(is_null($v) && !array_key_exists($k, $this->previousAttributeValues));
+            return !is_null($v) || array_key_exists($k, $this->previousAttributeValues);
         };
         $returnArray = array_filter($this->data, $callback, ARRAY_FILTER_USE_BOTH);
 
