@@ -11,7 +11,7 @@ namespace Detrack\ElasticRoute;
  * @property float    $seating_capcity Allows you to specify the number of human staff this vehicle can seat
  * @property int      $buffer          Allows you to specify the buffer time, the amount of travelling time in minutes to factor in for each additional stop.
  * @property int      $avail_from      The starting time where the vehicle is available, represented as 24hr time.
- * @property int      $avail_to        The ending time where the vehicle is available, represented as 24hr time.
+ * @property int      $avail_till      The ending time where the vehicle is available, represented as 24hr time.
  * @property string[] $vehicle_types   An array of strings representing what vehicle types (classes) this vehicle is classified under
  * @property bool     $return_to_depot Specify whether the vehicle requires to return to the depot. The time taken to return to depot will be considered if this field is set to true.
  * @property bool     $avail           DASHBOARD ONLY: Availability of the vehicle to be included for planning
@@ -28,7 +28,7 @@ namespace Detrack\ElasticRoute;
  * @property-read string   $created_at      DASHBOARD ONLY: UTC time when the stop was created, as seen in the dashboard
  * @property-read string   $updated_at      DASHBOARD ONLY: UTC time when the stop was updated, as seen in the dashboard
  */
-class Vehicle implements \JsonSerializable
+class Vehicle extends Model
 {
     /** @var array encapsulates the data of the model */
     protected $data = [
@@ -55,50 +55,6 @@ class Vehicle implements \JsonSerializable
         'zones' => null,
         'groups' => null,
     ];
-
-    /** @var mixed[] keeps track of the immediate previous value of the attribute */
-    protected $previousAttributeValues = [];
-
-    public function __construct($data = [])
-    {
-        foreach ($data as $dataKey => $dataValue) {
-            $this->$dataKey = $dataValue;
-        }
-    }
-
-    public function __set($key, $value)
-    {
-        // if this key exists in the data array
-        if (array_key_exists($key, $this->data)) {
-            // if there was a change in data values
-            if (is_null($this->data[$key]) || $this->data[$key] !== $value) {
-                // save it in previous attributes, just in case we need it later
-                $this->previousAttributeValues[$key] = $this->data[$key];
-                $this->data[$key] = $value;
-            }
-        }
-    }
-
-    public function __get($key)
-    {
-        return $this->data[$key];
-    }
-
-    /**
-     * Converts this Vehicle into an associative array for use with json_encode.
-     *
-     * In an attempt to prevent accidental overwrites on the Dashboard and to decrease the size of the JSON document sent to the server, this function will only return attributes that have been modified since creation.
-     *
-     * @return mixed[] an associative array to be encoded into JSON format
-     */
-    public function jsonSerialize()
-    {
-        $callback = function ($k, $v) {
-            return !(is_null($v) && !array_key_exists($k, $this->previousAttributeValues));
-        };
-
-        return array_filter($this->data, $callback, ARRAY_FILTER_USE_BOTH);
-    }
 
     /**
      * Determines whether this list of vehicles are valid to be submitted to the Routing Engine API.
@@ -157,5 +113,65 @@ class Vehicle implements \JsonSerializable
         }
 
         return true;
+    }
+
+    /**
+     * Common path in the REST API.
+     */
+    protected static $path = 'vehicles';
+
+    /**
+     * Internal function for generating the internal prefix for all endpoints relating to single route CRUD.
+     *
+     * @return string the full path
+     */
+    protected function resolvePath()
+    {
+        return DashboardClient::$baseUrl.'/'.static::$path;
+    }
+
+    /**
+     * Overrides parent Model function to tell the model where to send the POST request for creating vehicles.
+     *
+     * @return string the full path
+     */
+    protected function resolveCreatePath()
+    {
+        return $this->resolvePath();
+    }
+
+    /**
+     * Child classes are to override this method to determine what is the document path to send the http request to for the retrieve method.
+     *
+     * @return string the path
+     */
+    protected function resolveRetrievePath()
+    {
+        return $this->resolvePath().'/'.$this->name;
+    }
+
+    /**
+     * Overrides parent Model function to tell the model where to send the PUT request for updating vehicles.
+     *
+     * This will attempt to use the previous name if any, to allow the user to be able to change the name of the stop without creating a new model.
+     * Because if the current name is used, it would create an additional vehicle.
+     *
+     * @return string the full path
+     */
+    protected function resolveUpdatePath()
+    {
+        $name = $this->previousAttributeValues['name'] ?? $this->name;
+
+        return $this->resolvePath().'/'.$name;
+    }
+
+    /**
+     * Overrides parent Model function to tell the model what to send in the DELETE request for deleting vehicles.
+     *
+     * @return string the full path
+     */
+    protected function resolveDeletePath()
+    {
+        return $this->resolvePath().'/'.$this->name;
     }
 }
