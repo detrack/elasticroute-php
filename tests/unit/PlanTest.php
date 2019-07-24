@@ -35,9 +35,9 @@ final class PlanTest extends TestCase
 
     public function testWillThrowExceptionOnHTTPError()
     {
-        //try to intentionally cause an HTTP Error by changing the baseURL
+        //try to intentionally cause an HTTP Error by changing the baseUrl
         $plan = new Plan();
-        Plan::$baseURL = 'https://example.com';
+        Plan::$baseUrl = 'https://example.com';
         $plan->id = 'TestPlan_'.time();
         $depots = [new Depot([
             'name' => 'Somewhere',
@@ -76,6 +76,6 @@ final class PlanTest extends TestCase
             $this->assertStringMatchesFormat('API Return HTTP Code%a', $ex->getMessage());
         }
         //reset the changed url or we gg lol
-        Plan::$baseURL = getenv('elasticroute_path').'/plan';
+        Plan::$baseUrl = getenv('elasticroute_path').'/plan';
     }
 }

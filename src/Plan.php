@@ -4,7 +4,7 @@ namespace Detrack\ElasticRoute;
 
 class Plan implements \JsonSerializable
 {
-    public static $baseURL = 'https://app.elasticroute.com/api/v1/plan';
+    public static $baseUrl = 'https://app.elasticroute.com/api/v1/plan';
     public static $defaultApiKey;
     public $apiKey;
     public $id = '';
@@ -42,7 +42,7 @@ class Plan implements \JsonSerializable
         if ($this->connectionType == 'sync') {
             $queryVar = '?c=sync';
         }
-        $ch = curl_init((static::$baseURL).'/'.$this->id.$queryVar);
+        $ch = curl_init((static::$baseUrl).'/'.$this->id.$queryVar);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS);

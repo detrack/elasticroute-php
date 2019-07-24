@@ -37,7 +37,7 @@ class Solution implements \JsonSerializable
             throw new BadFieldException('You need to create an id for this plan!');
         }
 
-        $ch = curl_init((Plan::$baseURL).'/'.$this->plan_id);
+        $ch = curl_init((Plan::$baseUrl).'/'.$this->plan_id);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS);

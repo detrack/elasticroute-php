@@ -68,7 +68,7 @@ final class SolutionTest extends TestCase
 
     public function testWillThrowExceptionOnHTTPError()
     {
-        //try to intentionally cause an HTTP Error by changing the baseURL
+        //try to intentionally cause an HTTP Error by changing the baseUrl
         $plan = new Plan();
         $plan->id = 'TestPlan_'.time();
         $depots = [new Depot([
@@ -102,7 +102,7 @@ final class SolutionTest extends TestCase
         $plan->vehicles = $vehicles;
         $plan->stops = $stops;
         $solution = $plan->solve($this->proxy);
-        Plan::$baseURL = 'https://example.com';
+        Plan::$baseUrl = 'https://example.com';
         try {
             $solution->refresh($this->proxy);
             $this->fail('No exception thrown');
@@ -110,7 +110,7 @@ final class SolutionTest extends TestCase
             $this->assertStringMatchesFormat('API Return HTTP Code%a', $ex->getMessage());
         }
         //reset the changed url or we gg lol
-        Plan::$baseURL = getenv('elasticroute_path').'/plan';
+        Plan::$baseUrl = getenv('elasticroute_path').'/plan';
     }
 
     public function testJsonSerialize()
