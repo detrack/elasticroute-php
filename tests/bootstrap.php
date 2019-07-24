@@ -2,8 +2,12 @@
 
 include 'vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::create(__DIR__);
-$dotenv->load();
+try {
+    $dotenv = Dotenv\Dotenv::create(__DIR__);
+    $dotenv->load();
+} catch (Dotenv\Exception\InvalidPathException $ex) {
+    // .env file doesn't exist...
+}
 
 Detrack\ElasticRoute\Plan::$defaultApiKey = getenv('elasticroute_api_key');
 Detrack\ElasticRoute\Plan::$baseURL = getenv('elasticroute_path').'/plan';
