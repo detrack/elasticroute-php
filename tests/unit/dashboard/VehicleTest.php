@@ -28,7 +28,7 @@ final class VehicleTest extends TestCase
         $client = new DashboardClient();
         $client->curlOptions = $this->proxy;
         $testData = new \stdClass();
-        $testData->name = 'Testing Vehicle 123'.time();
+        $testData->name = 'Testing Vehicle 123'.rand();
         $testData->weight_capacity = 8000;
         $vehicle = new Vehicle();
         $vehicle->dashboardClient = $client;
@@ -101,7 +101,7 @@ final class VehicleTest extends TestCase
     {
         $vehicle = $this->testCreate();
         $originalName = $vehicle->name;
-        $vehicle->name = 'Testing vehicle 1234'.time();
+        $vehicle->name = 'Testing vehicle 1234'.rand();
         $returnValue = $vehicle->update();
         $this->assertSame($returnValue->name, $vehicle->name);
         $this->assertNotSame($originalName, $vehicle->name);

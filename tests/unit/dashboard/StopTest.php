@@ -29,7 +29,7 @@ final class StopTest extends TestCase
         $client->curlOptions = $this->proxy;
         $testData = new \stdClass();
         $testData->date = date('Y-m-d');
-        $testData->name = 'Testing Stop 123'.time();
+        $testData->name = 'Testing Stop 123'.rand();
         $testData->address = '8 Somapah Road Singapore 487372';
         $stop = new Stop();
         $stop->dashboardClient = $client;
@@ -106,7 +106,7 @@ final class StopTest extends TestCase
     {
         $stop = $this->testCreate();
         $originalName = $stop->name;
-        $stop->name = 'Testing stop 1234'.time();
+        $stop->name = 'Testing stop 1234'.rand();
         $returnValue = $stop->update();
         $this->assertSame($returnValue->name, $stop->name);
         $this->assertNotSame($originalName, $stop->name);
