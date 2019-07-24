@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 use Detrack\ElasticRoute\Stop;
 use Detrack\ElasticRoute\DashboardClient;
 
-final class TestDashboardClient extends TestCase
+final class DashboardClientTest extends TestCase
 {
     protected $proxy = [];
 
