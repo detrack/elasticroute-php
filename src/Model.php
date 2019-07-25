@@ -67,10 +67,6 @@ abstract class Model implements JsonSerializable
     /** @var DashboardClient DASHBOARD ONLY: instance of the dashboard client this model belongs to */
     public $dashboardClient;
 
-    public function save()
-    {
-    }
-
     /**
      * Child classes are to override this method to determine what is the document path to send the http request to for the create method.
      *
