@@ -252,8 +252,6 @@ $client->uploadStopsOnDate($stops, date('Y-m-d'));
 
 This would set today's dashboard to show these stops. Use the second argument to pass a string under the `YYYY-MM-DD` format to change the date you want to upload these stops under.
 
-> **Note:** this method would **clear all existing stops** on the dashboard for that date and replace them with the ones passed to the method.
-
 To retrieve existing stops on the dashboard, use the `listAllStopsOnDate` method:
 
 ```php
@@ -278,6 +276,30 @@ To delete all stops on a date, use the `deleteAllStopsOnDate` method:
 $client->deleteAllStopsOnDate(date('Y-m-d'));
 ```
 
+The `Stop` object also has methods to do CRUD operations on individual stops:
+
+```php
+$stop = new Stop();
+$stop->client = $client; // instance of Detrack\ElasticRoute\DashboardClient
+$stop->name = "Test Stop";
+$stop->address = "8 Somapah Road";
+$stop->date = date('Y-m-d'); // the date must be present if CRUDing individual stops
+
+// create – will throw error if a stop with the same name already exists on the same date
+$stop->create();
+
+// read – will return null if a stop with specified name is not found on date (but the object itself is not changed)
+$stop->retrieve();
+
+// update – will throw error if a stop with the specified name is not found on date
+$stop->name = "Singapore Zoo";
+$stop->address = "80 Mandai Lake Road Singapore 729826";
+$stop->update();
+
+// delete – will throw error if a stop with the specified name is not found on date
+$stop->delete();
+```
+
 ### Vehicles
 
 Vehicles can also be pushed to the Dashboard (found under settings in the Dashboard) using the `uploadVehicles` method:
@@ -297,7 +319,28 @@ $vehicles = [$vehicle1, $vehicle2];
 $client->uploadVehicles($vehicles);
 ```
 
-> **Note:** again, this method would **clear all existing vehicles** you have on the Dashboard.
+The `Vehicle` object also has methods to do CRUD operations on individual stops:
+
+```php
+$vehicle = new Vehicle();
+$vehicle->client = $client; // instance of Detrack\ElasticRoute\DashboardClient
+$vehicle->name = "Test Van";
+$vehicle->avail_from = 900;
+$vehicle->avail_till = 1500;
+
+// create – will throw error if a vehicle with the same name already exists on the same account
+$vehicle->create();
+
+// read – will return null if a vehicle with specified name is not found (but the object itself will not be changed)
+$vehicle->retrieve();
+
+// update – will throw error if a vehicle with the specified name is not found on the same account
+$vehicle->avail_till = 1700;
+$vehicle->update();
+
+// delete – will throw error if a stop with the specified name is not found on date
+$vehicle->delete();
+```
 
 ### Planning
 
