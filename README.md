@@ -8,13 +8,18 @@
 
 ![ElasticRoute Logo](http://elasticroute.staging.wpengine.com/wp-content/uploads/2019/02/Elastic-Route-Logo-Text-on-right-e1551344046806.png)
 
+### Notice
+
+> With effect from 02 January 2021, we will deprecate support for this client library and there will be no future updates. If you are currently using the client library, the integrations done based on it should still be able to work. Moving forward, we recommend the use of our API documentation ([Dashboard](https://www.elasticroute.com/dashboard-api-documentation/) and [Routing Engine](https://www.elasticroute.com/routing-engine-api-documentation/)) to build your integration.
+
+
 ### API for solving large scale travelling salesman/fleet routing problems
 
 You have a fleet of just 10 vehicles to serve 500 spots in the city. Some vehicles are only available in the day. Some stops can only be served at night. How would you solve this problem?
 
 You don't need to. Just throw us an array of stops, vehicles and depots and we will do the heavy lifting for you. _Routing as a Service!_
 
-**BETA RELASE:**  ElasticRoute is completely free-to-use until 30th April 2020!
+**BETA RELASE:**  ElasticRoute is completely free-to-use until 30th April 2021!
 
 ## Preface
 
